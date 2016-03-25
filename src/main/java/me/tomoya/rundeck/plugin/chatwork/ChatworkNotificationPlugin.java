@@ -1,6 +1,8 @@
 package me.tomoya.rundeck.plugin.chatwork;
 
+import com.dtolabs.rundeck.core.plugins.Plugin;
 import com.dtolabs.rundeck.core.plugins.configuration.PropertyScope;
+import com.dtolabs.rundeck.plugins.descriptions.PluginDescription;
 import com.dtolabs.rundeck.plugins.descriptions.PluginProperty;
 import com.dtolabs.rundeck.plugins.notification.NotificationPlugin;
 import org.apache.http.Header;
@@ -22,6 +24,8 @@ import java.util.stream.Stream;
 /**
  * Created by tomoya-k31 on 2016/03/25.
  */
+@Plugin(service= "Notification", name="ChatworkNotification")
+@PluginDescription(title="Chatwork")
 public class ChatworkNotificationPlugin implements NotificationPlugin {
 
     private static final String TRIGGER_START = "start";
