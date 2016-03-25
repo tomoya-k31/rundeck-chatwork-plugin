@@ -1,0 +1,70 @@
+version = "${version}"
+archivesBaseName = "${archivesBaseName}"
+
+defaultTasks 'clean','build'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = "${defaultEncoding}"
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+configurations {
+    provided
+    pluginLibs
+    compile {
+        extendsFrom pluginLibs
+    }
+}
+
+sourceSets {
+    main.compileClasspath += [configurations.provided]
+    test.compileClasspath += [configurations.provided]
+    test.runtimeClasspath += [configurations.provided]
+}
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+ext {
+    pluginClassNames='me.tomoya.rundeck.plugin.chatwork.ChatworkNotificationPlugin'
+    rundeckPluginVersion = "${rundeckPluginVersion}"
+    rundeckVersion = "${rundeckVersion}"
+}
+
+dependencies {
+    provided "org.rundeck:rundeck-core:${rundeckVersion}"
+    pluginLibs 'org.apache.httpcomponents:httpclient:4.5.2'
+    pluginLibs 'org.apache.httpcomponents:fluent-hc:4.5.2'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "${gradleVersion}"
+}
+
+task copyToLib(type: Copy) {
+    into "$buildDir/output/lib"
+    from configurations.pluginLibs
+}
+
+jar {
+    from "$buildDir/output"
+    manifest {
+        def libList = configurations.pluginLibs.collect{'lib/'+it.name}.join(' ')
+        attributes 'Rundeck-Plugin-Classnames': pluginClassNames
+        attributes 'Rundeck-Plugin-File-Version': "${version}"
+        attributes 'Rundeck-Plugin-Version': rundeckPluginVersion, 'Rundeck-Plugin-Archive': 'true'
+        attributes 'Rundeck-Plugin-Libs': "${libList}"
+    }
+}
+jar.dependsOn(copyToLib)
+
+
