@@ -1,9 +1,10 @@
-version = "${version}"
-archivesBaseName = "${archivesBaseName}"
 
 defaultTasks 'clean','build'
 apply plugin: 'java'
 apply plugin: 'idea'
+
+version = "${version}"
+archivesBaseName = "${name}-${rundeckVersion}"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -35,7 +36,7 @@ idea {
 }
 
 ext {
-    pluginClassNames='me.tomoya.rundeck.plugin.chatwork.ChatworkNotificationPlugin'
+    pluginClassNames='tomoyak31.rundeck.plugin.ChatworkNotificationPlugin'
     rundeckPluginVersion = "${rundeckPluginVersion}"
     rundeckVersion = "${rundeckVersion}"
 }

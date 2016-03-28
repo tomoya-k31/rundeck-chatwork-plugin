@@ -1,4 +1,4 @@
-package me.tomoya.rundeck.plugin.chatwork;
+package tomoyak31.rundeck.plugin;
 
 import com.dtolabs.rundeck.core.plugins.Plugin;
 import com.dtolabs.rundeck.core.plugins.configuration.PropertyScope;
@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
@@ -75,6 +76,29 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
 //        if (TRIGGER_FAILURE.equals(trigger)) {
 //            // 失敗
 //        }
+
+
+        System.out.println("trigger: " + trigger);
+
+        Map<String, Object> tExecutionData = executionData;
+        Map<String, Object> executionMap = (Map<String, Object>) tExecutionData.get("execution");
+        Map<String, Object> jobMap = (Map<String, Object>) tExecutionData.get("job");
+        System.out.println("executionData.executionMap: ");
+        executionMap.entrySet().stream().forEach(e -> {
+            System.out.println(" - " + e.getKey() + " : " + e.getValue());
+        });
+        System.out.println("executionData.jobMap: ");
+        jobMap.entrySet().stream().forEach(e -> {
+            System.out.println(" - " + e.getKey() + " : " + e.getValue());
+        });
+
+        Map<String, Object> tConfig = config;
+        System.out.println("config: ");
+        tConfig.entrySet().stream().forEach(e -> {
+            System.out.println(" - " + e.getKey() + " : " + e.getValue());
+        });
+
+
         postMessage(generateMessage(getDefaultUsers(trigger), "テスト"));
 
         return true;
@@ -85,6 +109,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
      * @param message
      */
     private void postMessage(String message) {
+        HttpClient client = null;
         try {
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("body", message));
@@ -104,7 +129,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
                     .build();
 
             // http client
-            HttpClient client = HttpClientBuilder.create()
+            client = HttpClientBuilder.create()
                     .setDefaultRequestConfig(requestConfig)
                     .setDefaultHeaders(headers).build();
 
@@ -112,6 +137,8 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
 
         } catch (Exception e) {
             System.err.println("Chatworkメッセージ投稿を失敗しました。" + e.getMessage());
+        } finally {
+            HttpClientUtils.closeQuietly(client);
         }
     }
 
