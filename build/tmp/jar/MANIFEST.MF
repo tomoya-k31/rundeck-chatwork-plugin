@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Rundeck-Plugin-Classnames: tomoyak31.rundeck.plugin.ChatworkNotificati
+ onPlugin
+Rundeck-Plugin-File-Version: 2.6.4
+Rundeck-Plugin-Version: 2.6.4
+Rundeck-Plugin-Archive: true
+Rundeck-Plugin-Libs: lib/freemarker-2.3.23.jar lib/httpclient-4.5.2.ja
+ r lib/httpcore-4.4.4.jar lib/commons-logging-1.2.jar lib/commons-code
+ c-1.9.jar
+

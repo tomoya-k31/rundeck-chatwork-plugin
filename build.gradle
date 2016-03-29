@@ -43,8 +43,12 @@ ext {
 
 dependencies {
     provided "org.rundeck:rundeck-core:${rundeckVersion}"
+    pluginLibs 'org.freemarker:freemarker:2.3.23'
     pluginLibs 'org.apache.httpcomponents:httpclient:4.5.2'
-    pluginLibs 'org.apache.httpcomponents:fluent-hc:4.5.2'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.jmockit:jmockit:1.20'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
 }
 
 task wrapper(type: Wrapper) {
