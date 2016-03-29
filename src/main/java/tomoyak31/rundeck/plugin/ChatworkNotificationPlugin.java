@@ -38,7 +38,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
     @SelectValues(values = {MENTION_OFF, MENTION_ON})
     String mention;
 
-    @PluginProperty(title = "エラー時のデフォルトTo:通知", required = false, scope = PropertyScope.Project)
+    @PluginProperty(title = "エラー時のデフォルトTo:通知", required = false)
     boolean isDefaultFailureMention;
 
     @PluginProperty(title = "Message Template", description = "Freemarkerを使っています。http://rundeck.org/docs/developer/notification-plugin.htmlの'Execution data'を参照してください。", required = false, scope = PropertyScope.Project)
