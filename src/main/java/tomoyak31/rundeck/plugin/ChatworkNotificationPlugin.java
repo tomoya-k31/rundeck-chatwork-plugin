@@ -1,6 +1,7 @@
 package tomoyak31.rundeck.plugin;
 
 import com.dtolabs.rundeck.core.plugins.Plugin;
+import com.dtolabs.rundeck.core.plugins.configuration.PropertyScope;
 import com.dtolabs.rundeck.plugins.descriptions.PluginDescription;
 import com.dtolabs.rundeck.plugins.descriptions.PluginProperty;
 import com.dtolabs.rundeck.plugins.descriptions.SelectValues;
@@ -24,23 +25,23 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
     private static final String MENTION_ON = "on";
     private static final String MENTION_OFF = "off";
 
-    @PluginProperty(title = "User ID", description = "通知するユーザIDを指定したい場合に記入してください。複数指定する場合はカンマ区切りで記入。")
+    @PluginProperty(title = "User ID", description = "通知するユーザIDを指定したい場合に記入してください。複数指定する場合はカンマ区切りで記入。", required = false, scope = PropertyScope.Project)
     String users;
 
-    @PluginProperty(title = "API Token")
+    @PluginProperty(title = "API Token", required = false, scope = PropertyScope.Project)
     String apiToken;
 
-    @PluginProperty(title = "Room ID")
+    @PluginProperty(title = "Room ID", required = false, scope = PropertyScope.Project)
     String roomId;
 
-    @PluginProperty(title = "To:通知", required = true, description = "on: 指定したユーザ or デフォルトのユーザ宛のメッセージに[To]を付けて通知します。")
+    @PluginProperty(title = "To:通知", required = true, description = "on: 指定したユーザ or デフォルトのユーザ宛のメッセージに[To]を付けて通知します。", scope = PropertyScope.Project)
     @SelectValues(values = {MENTION_OFF, MENTION_ON})
     String mention;
 
-    @PluginProperty(title = "エラー時のデフォルトTo:通知")
+    @PluginProperty(title = "エラー時のデフォルトTo:通知", required = false, scope = PropertyScope.Project)
     boolean isDefaultFailureMention;
 
-    @PluginProperty(title = "Message Template", description = "Freemarkerを使っています。<a href=\"http://rundeck.org/docs/developer/notification-plugin.html\">Notification Plugin</a>の'Execution data'を参照してください。")
+    @PluginProperty(title = "Message Template", description = "Freemarkerを使っています。http://rundeck.org/docs/developer/notification-plugin.htmlの'Execution data'を参照してください。", required = false, scope = PropertyScope.Project)
     String messageTemplate;
 
     @Override
