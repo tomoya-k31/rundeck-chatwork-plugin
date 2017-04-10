@@ -41,7 +41,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
     @SelectValues(values = {MENTION_OFF, MENTION_ON})
     String mention;
 
-    @PluginProperty(title = "再実行判定", required = true, defaultValue = "on：失敗したら発見した人が再実行してもいいです。")
+    @PluginProperty(title = "再実行判定", required = true, description = "on：失敗したら発見した人が再実行お願いします。")
     @SelectValues(values = {RETRY_OFF, RETRY_ON})
     String retry;
 
@@ -90,7 +90,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
 
     private String needRetry(String trigger) {
         if (StringUtils.equals(trigger, TRIGGER_FAILURE) && StringUtils.equals(RETRY_ON, retry)) {
-            return "再起動していいよ";
+            return "再起動お願いします";
         }
 
         return null;
