@@ -41,7 +41,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
     @SelectValues(values = {MENTION_OFF, MENTION_ON})
     String mention;
 
-    @PluginProperty(title = "再実行判定", required = true, description = "on：失敗したら発見した人が再実行お願いします。")
+    @PluginProperty(title = "再実行判定", required = false, description = "on：失敗したら「再実行お願いします。」を付けて通知します。")
     @SelectValues(values = {RETRY_OFF, RETRY_ON})
     String retry;
 
