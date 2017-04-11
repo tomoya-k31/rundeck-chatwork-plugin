@@ -90,7 +90,7 @@ public class ChatworkNotificationPlugin implements NotificationPlugin {
 
     private String needRetry(String trigger) {
         if (StringUtils.equals(trigger, TRIGGER_FAILURE) && StringUtils.equals(RETRY_ON, retry)) {
-            return "再起動お願いします";
+            return "再実行お願いします";
         }
 
         return null;
