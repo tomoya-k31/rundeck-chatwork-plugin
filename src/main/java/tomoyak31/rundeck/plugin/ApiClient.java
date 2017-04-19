@@ -23,7 +23,7 @@ class ApiClient {
 
     private static final String CHATWORK_API_SCHEME = "https://";
     private static final String CHATWORK_API_HOST = "api.chatwork.com";
-    private static final String CHATWORK_API_VER = "/v1";
+    private static final String CHATWORK_API_VER = "/v2";
     private static final String CHATWORK_API_ROOM_PATH = "/rooms";
     private static final String CHATWORK_API_ROOM_ACTION = "/messages";
 
